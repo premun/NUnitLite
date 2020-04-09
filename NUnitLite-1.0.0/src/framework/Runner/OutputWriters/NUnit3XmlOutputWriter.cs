@@ -193,8 +193,12 @@ namespace NUnitLite.Runner
                         WriteReasonElement(result.Message);
                         break;
                 case TestStatus.Failed:
-                        WriteFailureElement(result.Message, result.StackTrace, result.ExceptionType ?? "UnknownException");
-                        break;
+#if MONO
+                    WriteFailureElement(result.Message, result.StackTrace, result.ExceptionType ?? "UnknownException");
+#else
+                    WriteFailureElement(result.Message, result.StackTrace, "UnknownException");
+#endif
+                    break;
                 }
 
                 if (result.FailCount > 0) {
@@ -239,8 +243,12 @@ namespace NUnitLite.Runner
                     WriteReasonElement (result.Message);
                     break;
             case TestStatus.Failed:
-                    WriteFailureElement (result.Message, result.StackTrace, result.ExceptionType ?? "UnknownException");
-                    break;
+#if MONO
+                    WriteFailureElement(result.Message, result.StackTrace, result.ExceptionType ?? "UnknownException");
+#else
+                    WriteFailureElement(result.Message, result.StackTrace, "UnknownException");
+#endif
+                break;
             }
 
             xmlWriter.WriteEndElement ();
