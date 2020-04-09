@@ -7,13 +7,9 @@
     <RootNamespace>NUnitLite</RootNamespace>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-  <!--
-    <IntermediateOutputPath>obj\$(Configuration)\net-core-3.1\</IntermediateOutputPath>
+
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <OldToolsVersion>3.5</OldToolsVersion>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -28,36 +24,66 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>-->
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <IntermediateOutputPath>obj\$(Configuration)\net-core-3.1\</IntermediateOutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DefineConstants>TRACE;DEBUG;NETCORE,CORE_3_1,NUNITLITE;$(AppendConstants)</DefineConstants>
-    <!-- <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>TRACE;DEBUG;NETCORE,CORE_3_1,NUNITLITE;$(AppendConstants)</DefineConstants><DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\Debug\net-4.0\</OutputPath>
+    <OutputPath>..\..\bin\Debug\net-core-3.1\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet Condition="'$(RunCodeAnalysis)' != 'false'">AllRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>..\..\bin\Debug\net-4.0\nunitlite.xml</DocumentationFile> -->
+    <DocumentationFile>..\..\bin\Debug\net-core-3.1\nunitlite.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DefineConstants>TRACE;NETCORE,CORE_3_1,NUNITLITE;$(AppendConstants)</DefineConstants>
-    <!-- <DebugType>pdbonly</DebugType>
+    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\Release\net-4.0\</OutputPath>
+    <OutputPath>..\..\bin\Release\net-core-3.1\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet Condition="'$(RunCodeAnalysis)' != 'false'">AllRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>..\..\bin\Release\net-4.0\nunitlite.xml</DocumentationFile> -->
+    <DocumentationFile>..\..\bin\Release\net-core-3.1\nunitlite.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Runner\Silverlight\**" />
     <EmbeddedResource Remove="Runner\Silverlight\**" />
     <None Remove="Runner\Silverlight\**" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <!-- THIS HAS TO BE FLIPPED BEFORE CHECKING IN -->
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>nunit.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
   </ItemGroup>
 
   <ItemGroup>
