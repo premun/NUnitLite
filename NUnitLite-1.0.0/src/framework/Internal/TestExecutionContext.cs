@@ -34,7 +34,7 @@ using System.Security.Principal;
 #endif
 
 using NUnit.Framework.Api;
-#if !SILVERLIGHT && !NETCF
+#if !SILVERLIGHT && !NETCF &&!NETCORE
 using System.Runtime.Remoting.Messaging;
 #endif
 
@@ -53,10 +53,10 @@ namespace NUnit.Framework.Internal
 	/// object on the top of the stack.
 	/// </summary>
 	public class TestExecutionContext
-#if !SILVERLIGHT && !NETCF
+#if !SILVERLIGHT && !NETCF && !NETCORE
         : ILogicalThreadAffinative
 #endif
-	{
+    {
         #region Instance Fields
 
         /// <summary>
@@ -239,7 +239,7 @@ namespace NUnit.Framework.Internal
         /// <summary>
         /// The current context, head of the list of saved contexts.
         /// </summary>
-#if SILVERLIGHT || NETCF || __MOBILE__
+#if SILVERLIGHT || NETCF || __MOBILE__ || NETCORE
 #if (CLR_2_0 || CLR_4_0) && !NETCF
         [ThreadStatic]
 #endif
@@ -256,7 +256,7 @@ namespace NUnit.Framework.Internal
         {
             get 
             {
-#if SILVERLIGHT || NETCF || __MOBILE__
+#if SILVERLIGHT || NETCF || __MOBILE__ || NETCORE
                 if (current == null)
                     current = new TestExecutionContext();
 
@@ -273,7 +273,7 @@ namespace NUnit.Framework.Internal
 
         internal static void SetCurrentContext(TestExecutionContext ec)
         {
-#if SILVERLIGHT || NETCF || __MOBILE__
+#if SILVERLIGHT || NETCF || __MOBILE__ || NETCORE
             current = ec;
 #else
             CallContext.SetData(CONTEXT_KEY, ec);

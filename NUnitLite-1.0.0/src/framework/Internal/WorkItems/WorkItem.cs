@@ -197,7 +197,7 @@ namespace NUnit.Framework.Internal.WorkItems
 
             TestExecutionContext.SetCurrentContext(_context);
 
-#if (CLR_2_0 || CLR_4_0) && !SILVERLIGHT && !NETCF_2_0
+#if (CLR_2_0 || CLR_4_0 || NETCORE) && !SILVERLIGHT && !NETCF_2_0
             long startTicks = Stopwatch.GetTimestamp();
 #endif
 

@@ -27,16 +27,40 @@
 using System;
 using System.Diagnostics;
 using System.Threading;
-using NUnit.Framework.Api;
 using System.Collections.Generic;
+using NUnit.Framework.Api;
+
+#if NETCORE
+using System.Collections.Concurrent;
+#else
 using System.Runtime.Remoting.Messaging;
+#endif
 
 namespace NUnit.Framework.Internal
 {
+#if NETCORE
+	static class CallContext
+	{
+		static readonly ConcurrentDictionary<string, AsyncLocal<object>> state = new ConcurrentDictionary<string, AsyncLocal<object>>();
+
+		public static void SetData(string name, Container data) =>
+			state.GetOrAdd(name, _ => new AsyncLocal<object>()).Value = data;
+
+		public static object GetData(string name) =>
+			state.TryGetValue(name, out AsyncLocal<object> data) ? (Container)data.Value : null;
+	}
+#else
+#endif
+
 	[Serializable]
-	class Container : ILogicalThreadAffinative {
+	class Container
+#if !SILVERLIGHT && !NETCF && !NETCORE
+        : ILogicalThreadAffinative
+#endif
+	{
 		public Guid guid;
-		public Container(Guid guid) {
+		public Container(Guid guid)
+		{
 			this.guid = guid;
 		}
 	}
@@ -114,7 +138,7 @@ namespace NUnit.Framework.Internal
 			long startTicks = frame.Item2;
 			TestResult result = frame.Item3;
 
-#if (CLR_2_0 || CLR_4_0) && !SILVERLIGHT && !NETCF_2_0
+#if (CLR_2_0 || CLR_4_0 || NETCORE) && !SILVERLIGHT && !NETCF_2_0
 			long tickCount = Stopwatch.GetTimestamp() - startTicks;
 			double seconds = (double)tickCount / Stopwatch.Frequency;
 			result.Duration = TimeSpan.FromSeconds(seconds);
