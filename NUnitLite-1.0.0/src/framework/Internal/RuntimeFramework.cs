@@ -27,7 +27,9 @@ using System.Collections.Generic;
 #endif
 using System.IO;
 using System.Reflection;
+#if NETCORE
 using Microsoft.Win32;
+#endif
 
 namespace NUnit.Framework.Internal
 {
@@ -183,6 +185,7 @@ namespace NUnit.Framework.Internal
 					if (major == 2)
                     {
                         RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\.NETFramework");
+
                         if (key != null)
                         {
                             string installRoot = key.GetValue("InstallRoot") as string;

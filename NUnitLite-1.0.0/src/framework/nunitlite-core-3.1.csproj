@@ -7,17 +7,12 @@
     <RootNamespace>NUnitLite</RootNamespace>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-  </PropertyGroup>
-
-
-  <PropertyGroup>
-    <!--<ProductVersion>9.0.30729</ProductVersion>
+  <!--
+    <IntermediateOutputPath>obj\$(Configuration)\net-core-3.1\</IntermediateOutputPath>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>nunitlite</AssemblyName>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -33,8 +28,7 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-    <IntermediateOutputPath>obj\$(Configuration)\net-4.0\</IntermediateOutputPath> -->
+    <BootstrapperEnabled>true</BootstrapperEnabled>-->
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -64,6 +58,10 @@
     <Compile Remove="Runner\Silverlight\**" />
     <EmbeddedResource Remove="Runner\Silverlight\**" />
     <None Remove="Runner\Silverlight\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Win32.Registry" Version="4.7.0" />
   </ItemGroup>
 
 </Project>
